@@ -8,9 +8,14 @@
 
 name: Build OpenWrt
 
-on: 
+于: 
   repository_dispatch:
-
+  workflow_dispatch:
+    inputs:
+      ssh:
+        description: 'SSH connection to Actions'
+        required: false
+        default: 'false'
 env:
   REPO_TOKEN: ${{ secrets.TOKEN_KIDDIN9 }}
   PPPOE_USERNAME: ${{ secrets.PPPOE_USERNAME }}
