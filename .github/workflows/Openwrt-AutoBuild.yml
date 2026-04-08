@@ -36,7 +36,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: ["armsr_armv8"]
+        target: ["armsr_armv8","ipq806x_generic"]
         
     steps:
     - name: Checkout
