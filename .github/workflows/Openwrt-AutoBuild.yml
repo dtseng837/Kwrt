@@ -116,9 +116,11 @@ jobs:
         VERSION="$(echo "${{github.event.action}}" | grep -Eo " [0-9.]+" | sed -e 's/ //')" || true
         [ "$VERSION" ] && echo "VERSION=$VERSION" >> $GITHUB_ENV || echo "VERSION=$(date +'%m.%d')" >> $GITHUB_ENV
 
+   
     - name: Clone source code
       run: |
         set -x
+        echo "REPO_BRANCH=${{ env.REPO_BRANCH }}"   # <-- 加在这里，第一行
         TAG_INFO="$(curl -gs -H 'Content-Type: application/json' \
            -H "Authorization: Bearer ${{ secrets.TOKEN_KIDDIN9 }}" \
            -X POST -d '{ "query": "query {repository(owner: \"openwrt\", name: \"openwrt\") {refs(refPrefix: \"refs/tags/\", first: 4, orderBy: {field: TAG_COMMIT_DATE, direction: DESC}) {nodes {name target { ... on Tag {tagger {date}}}}}}}"}' https://api.github.com/graphql)"
